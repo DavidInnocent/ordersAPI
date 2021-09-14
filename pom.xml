@@ -47,6 +47,13 @@
 			<artifactId>lombok</artifactId>
 			<optional>true</optional>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.puppycrawl.tools/checkstyle -->
+		<dependency>
+			<groupId>com.puppycrawl.tools</groupId>
+			<artifactId>checkstyle</artifactId>
+			<version>9.0</version>
+		</dependency>
+
 
 	</dependencies>
 
