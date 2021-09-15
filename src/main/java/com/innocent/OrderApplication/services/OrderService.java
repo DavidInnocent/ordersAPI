@@ -1,17 +1,16 @@
 package com.innocent.OrderApplication.services;
 
+import com.innocent.OrderApplication.dto.OrderDto;
 import com.innocent.OrderApplication.models.Order;
-import com.innocent.OrderApplication.repositories.OrderRepository;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 public interface OrderService {
 
-    List<Order> findAllOrders();
-    Order findSingleOrder(Long id);
-    Order createSingleOrder(Order order);
-    Order updateOrder(Order order);
-    Order deleteOrder(Order order);
-
+    List<OrderDto> findAllOrders();
+    OrderDto findSingleOrder(Long id);
+    OrderDto createSingleOrder(Order order);
+    OrderDto updateOrder(Order order);
+    void deleteOrder(Long id);
+    void deleteAllOrders();
 }
