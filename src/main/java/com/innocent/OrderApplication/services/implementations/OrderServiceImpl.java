@@ -1,6 +1,7 @@
 package com.innocent.OrderApplication.services.implementations;
 
-import com.innocent.OrderApplication.dto.OrderDto;
+import com.innocent.OrderApplication.dto.mapper.OrderMapperImp;
+import com.innocent.OrderApplication.dto.model.OrderDto;
 import com.innocent.OrderApplication.dto.mapper.OrderMapper;
 import com.innocent.OrderApplication.exceptions.OrderNotFoundException;
 import com.innocent.OrderApplication.models.Order;
@@ -16,15 +17,17 @@ import java.util.stream.Collectors;
 @Service
 public class OrderServiceImpl implements OrderService {
     private final OrderRepository orderRepository;
+    private final OrderMapper orderMapper;
 
-    public OrderServiceImpl(OrderRepository orderRepository) {
+    public OrderServiceImpl(OrderRepository orderRepository, OrderMapper orderMapper) {
         this.orderRepository = orderRepository;
+        this.orderMapper = orderMapper;
     }
 
     @Override
     public List<OrderDto> findAllOrders() {
         final List<Order> all = orderRepository.findAll();
-        List<OrderDto> collect = all.stream().map(OrderMapper::toDTO).collect(Collectors.toList());
+        List<OrderDto> collect = all.stream().map(orderMapper::toDTO).collect(Collectors.toList());
         collect.forEach(orderDto -> log.info("DATA {}",orderDto));
         return collect;
     }
@@ -32,18 +35,18 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public OrderDto findSingleOrder(Long id) {
         Order order = orderRepository.findById(id).orElseThrow(() -> new OrderNotFoundException("Order not found with that id"));
-        return OrderMapper.toDTO(order);
+        return orderMapper.toDTO(order);
     }
 
     @Override
     public OrderDto createSingleOrder(Order order) {
-        return OrderMapper.toDTO(orderRepository.save(order));
+        return orderMapper.toDTO(orderRepository.save(order));
     }
 
     @Override
     public OrderDto updateOrder(Order order) {
         orderRepository.findById(order.getId()).orElseThrow(()->new OrderNotFoundException("That order does not exist "));
-        return OrderMapper.toDTO(orderRepository.save(order));
+        return orderMapper.toDTO(orderRepository.save(order));
     }
 
     @Override

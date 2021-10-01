@@ -15,15 +15,15 @@ import java.util.List;
 
 @Slf4j
 @RestController
-@RequestMapping(OrderController.URL)
-public class OrderController {
+@RequestMapping(OrderItemController.URL)
+public class OrderItemController {
 
     public static final String URL="/api/orders";
     private final OrderService orderService;
 
     private final ModelMapper modelMapper;
 
-    public OrderController(OrderService orderService, ModelMapper modelMapper) {
+    public OrderItemController(OrderService orderService, ModelMapper modelMapper) {
         this.orderService = orderService;
 
         this.modelMapper = modelMapper;
